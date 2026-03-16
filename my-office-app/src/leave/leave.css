@@ -1,0 +1,21 @@
+.approve{
+    transition: 0.3s ease-in-out;
+}
+
+.approve:hover{
+    background-color: transparent;
+    border : 2px solid green;
+    color:green;
+    cursor: pointer;
+}
+
+.reject{
+    transition: 0.3s ease-in-out;
+}
+
+.reject:hover{
+    background-color: transparent;
+    border: 2px solid red;
+    color:red;
+    cursor: pointer;
+}

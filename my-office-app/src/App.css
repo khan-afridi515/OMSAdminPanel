@@ -1,0 +1,10 @@
+.field{
+    transition: 0.3s ease-in-out;
+}
+
+.field:hover{
+    border : solid 2px blue;
+    background-color: transparent;
+    color:blue;
+    cursor:pointer;
+}

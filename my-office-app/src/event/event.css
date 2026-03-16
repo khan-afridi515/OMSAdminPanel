@@ -1,0 +1,21 @@
+.create{
+    transition:0.3s ease-in-out;
+}
+
+.create:hover{
+    background-color: transparent;
+    border: 2px solid blue;
+    color:blue;
+}
+
+.dlt{
+    transition:0.3s ease-in-out;
+}
+
+.dlt:hover{
+    background-color: transparent;
+    border : 2px solid red;
+    color:red;
+    cursor: pointer;
+
+}
