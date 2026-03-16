@@ -45,7 +45,7 @@ const Log = () => {
                 </div>
                 <button type="submit" className='py-2 text-[16px] px-3 text-white text-xl font-bold text-white text-center bg-blue-500 rounded-md field'>Log In</button>
             </form>
-            <p className='text-center text-black mt-2'>Don't have an Account?<Link to="/sign"><span className='text-blue-400'>Sign Up</span></Link></p>
+            
         </div>
       </div>
     </div>
