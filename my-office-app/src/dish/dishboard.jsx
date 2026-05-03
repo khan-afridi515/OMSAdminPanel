@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Cell
 } from "recharts";
+import { adminLocalhost } from "../localhostUrl";
+import axios from "axios";
 
 // Example data
 const leaveData = [
@@ -21,13 +23,30 @@ const eventsData = [
   { title: "Seminar", participants: 20 },
 ];
 
+const absentUrl = `${adminLocalhost}/api/v1/attandance/markabsentAttandance`;
+const adminToken = localStorage.getItem("adminToken");
+console.log("adminToken", adminToken);
+
+// taking admin token
+
 const COLORS = ["#34D399", "#F87171", "#60A5FA"]; // green, red, blue
 
 const Dishboard = () => {
-  return (
-    <div className="p-4 sm:p-6 bg-gray-100 min-h-screen mt-6">
+  useEffect(()=>{
+   axios.post(absentUrl, {}, {
+          headers: {
+            Authorization: `Bearer ${adminToken}`
+          }
+        })
+   .then((res)=>{
+    console.log(res);
+   })
 
-      <h1 className="text-2xl sm:text-3xl font-bold mb-6">Admin Dashboard</h1>
+},[adminToken])
+  return (
+    <div className="py-20 px-4 sm:p-6 bg-gray-100 min-h-screen">
+
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 mt-6">Admin Dashboard</h1>
 
       {/* Cards */}
       <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 mb-6">

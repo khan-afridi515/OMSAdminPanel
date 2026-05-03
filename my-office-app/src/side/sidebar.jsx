@@ -22,7 +22,7 @@ const Side = ({removeItem}) => {
             <div className='flex flex-col sm:pt-0 pt-2 pl-2 h-130'>
 
                 <div className='flex flex-col gap-2'>
-                    <NavLink to="/dish" end className={({ isActive }) => `text-[14px] font-[500] ${isActive ? "bg-blue-400 text-blue-500" : "text-blue-500"}`}><div className='flex gap-3 w-full py-1.5 px-2.5'>
+                    <NavLink to="/" end className={({ isActive }) => `text-[14px] font-[500] ${isActive ? "bg-blue-400 text-blue-500" : "text-blue-500"}`}><div className='flex gap-3 w-full py-1.5 px-2.5'>
 
                         <p className='text-[#0D121C] text-[16px] font-bold font-[500] text-white'>Dashboard</p>
                     </div></NavLink>
@@ -34,6 +34,10 @@ const Side = ({removeItem}) => {
 
                     <NavLink to="/event" end className={({ isActive }) => `text-[14px] font-[500] ${isActive ? "bg-blue-400 text-blue-500" : "text-blue-500"}`}><div className='flex gap-3 w-full py-1.5 px-2.5'>
                         <p className='text-[#0D121C] text-[16px] font-bold font-[500] text-white'>Event</p>
+                    </div></NavLink>
+
+                    <NavLink to="/history" end className={({ isActive }) => `text-[14px] font-[500] ${isActive ? "bg-blue-400 text-blue-500" : "text-blue-500"}`}><div className='flex gap-3 w-full py-1.5 px-2.5'>
+                        <p className='text-[#0D121C] text-[16px] font-bold font-[500] text-white'>History</p>
                     </div></NavLink>
 
 

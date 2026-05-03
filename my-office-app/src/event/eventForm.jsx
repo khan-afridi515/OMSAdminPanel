@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./event.css";
-// import axios from "axios";
+import axios from "axios";
+import { adminLocalhost } from "../localhostUrl";
+
 
 const CreateEventModal = ({ setOpen, setEvents }) => {
 
@@ -12,16 +14,31 @@ const CreateEventModal = ({ setOpen, setEvents }) => {
     location: ""
   });
 
+  // admin token
+  const mytoken = localStorage.getItem("adminToken");
+  console.log(mytoken);
+
   const handleChange = e => {
     console.log(e);
-    // setForm({ ...form, [e.target.name]: e.target.value });
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
+
+  
+  const eventUrl = `${adminLocalhost}/api/v2/eventRoute/event`
 
   const createEvent = async () => {
 
-
+   console.log("Events", form);
     console.log("My event has been created");
-    // const res = await axios.post("/api/admin/event", form);
+    const res = await axios.post(eventUrl, {title : form.title,
+      eventDate : form.date,
+      place : form.location,
+      time : form.time
+    }, {
+  headers: {
+    Authorization: `Bearer ${mytoken}`
+  }});
+    console.log(res);
 
     // setEvents(prev => [...prev, res.data]);
 

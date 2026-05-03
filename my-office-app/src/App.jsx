@@ -5,7 +5,9 @@ import Events from './event/event';
 import Side from './side/sidebar';
 import Mydish from './dish/myDish';
 import Log from './log';
-
+import ProtectedRoute from "./protectedRoute";
+import History from './attandanceHistory/history';
+import EmpHistory from './attandanceHistory/emphistory';
 
 
 
@@ -23,14 +25,24 @@ const App = () => {
     console.log("show block");
   }
 
+  const now = new Date();
+
+  const dt = now.getDate();
+  console.log("my date", dt);
+
+  console.log("my time",now);
+
+  // localStorage.removeItem("adminToken");
+
   return (
     <div>
       <BrowserRouter>
       <Routes>
-        <Route path="/leave" element={<LeaveRequests sideRef={sideRef} removeItem={removeItem} showItem={showItem}/>}/>
-        <Route path="/event" element={<Events sideRef={sideRef} removeItem={removeItem} showItem={showItem}/>}/>
-        <Route path="/" element={<Log/>}/>
-        <Route path="/dish" element={<Mydish sideRef={sideRef} removeItem={removeItem} showItem={showItem}/>}/>
+        <Route path="/leave" element={<ProtectedRoute><LeaveRequests sideRef={sideRef} removeItem={removeItem} showItem={showItem}/></ProtectedRoute>}/>
+        <Route path="/event" element={<ProtectedRoute><Events sideRef={sideRef} removeItem={removeItem} showItem={showItem}/></ProtectedRoute>}/>
+        <Route path="/login" element={<Log/>}/>
+        <Route path="/" element={<ProtectedRoute><Mydish sideRef={sideRef} removeItem={removeItem} showItem={showItem}/></ProtectedRoute>}/>
+        <Route path="/history" element={<ProtectedRoute><EmpHistory  sideRef={sideRef} removeItem={removeItem} showItem={showItem}/></ProtectedRoute>}/>
       </Routes>
       
       </BrowserRouter>

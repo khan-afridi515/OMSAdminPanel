@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-
 import "./App.css";
+import { adminLocalhost } from './localhostUrl';
+import axios from 'axios';
 
 
 const Log = () => {
@@ -19,15 +20,26 @@ const Log = () => {
     password: password
   }
   
-
+ const loginUrl = `${adminLocalhost}/api/v3/adminroute/ownLogin`;
 
   const handleLogin = (e) => {
     e.preventDefault();
 
+    axios.post(loginUrl, data)
+    .then((res)=>{
+      console.log(res.data.data.token);
+      localStorage.setItem("adminToken", res.data.data.token);
+
+      myNav("/");
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+
     setEmail("");
   setPassword("");
 
-    myNav("/dish");
+    // myNav("/dish");
 
   }
 
