@@ -4,7 +4,7 @@ import axios from "axios";
 import { adminLocalhost } from "../localhostUrl";
 
 
-const CreateEventModal = ({ setOpen, setEvents }) => {
+const CreateEventModal = ({ setOpen, setEvents, updateOpen }) => {
 
   const [form, setForm] = useState({
     title: "",
@@ -16,7 +16,10 @@ const CreateEventModal = ({ setOpen, setEvents }) => {
 
   // admin token
   const mytoken = localStorage.getItem("adminToken");
-  console.log(mytoken);
+  console.log("create event token:", mytoken);
+  if (!mytoken) {
+    console.warn("adminToken is missing from localStorage");
+  }
 
   const handleChange = e => {
     console.log(e);
@@ -27,22 +30,37 @@ const CreateEventModal = ({ setOpen, setEvents }) => {
   const eventUrl = `${adminLocalhost}/api/v2/eventRoute/event`
 
   const createEvent = async () => {
+    console.log("Events", form);
+    console.log("Creating event", eventUrl, "token present?", Boolean(mytoken));
 
-   console.log("Events", form);
-    console.log("My event has been created");
-    const res = await axios.post(eventUrl, {title : form.title,
-      eventDate : form.date,
-      place : form.location,
-      time : form.time
-    }, {
-  headers: {
-    Authorization: `Bearer ${mytoken}`
-  }});
-    console.log(res);
+    try {
+      const res = await axios.post(
+        eventUrl,
+        {
+          title: form.title,
+          description: form.description,
+          eventDate: form.date,
+          place: form.location,
+          time: form.time,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${mytoken}`,
+          },
+        }
+      );
 
-    // setEvents(prev => [...prev, res.data]);
-
-    // setOpen(false);
+      console.log("Create event response:", res);
+      setEvents((prev) => [...prev, res.data]);
+      setOpen(false);
+    } catch (err) {
+      console.error("Create event failed:", err.response || err);
+      if (err.response) {
+        console.error("request headers:", err.response.config.headers);
+        console.error("response data:", err.response.data);
+      }
+      alert("Failed to create event. Check console/network for details.");
+    }
   };
 
   return (
@@ -99,12 +117,22 @@ const CreateEventModal = ({ setOpen, setEvents }) => {
             Cancel
           </button>
 
-          <button
+          
+           {updateOpen ? (<button
+            className="bg-blue-500 text-white px-4 py-2 rounded create"
+            onClick={createEvent}
+          >
+            Update
+          </button>)
+          :
+          (<button
             className="bg-blue-500 text-white px-4 py-2 rounded create"
             onClick={createEvent}
           >
             Create
-          </button>
+          </button>)}
+
+         
 
         </div>
 

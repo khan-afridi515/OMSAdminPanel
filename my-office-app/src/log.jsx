@@ -27,8 +27,14 @@ const Log = () => {
 
     axios.post(loginUrl, data)
     .then((res)=>{
-      console.log(res.data.data.token);
-      localStorage.setItem("adminToken", res.data.data.token);
+      console.log("login response:", res.data);
+      const token = res.data?.data?.token || res.data?.token;
+      if (!token) {
+        console.error("Login response did not contain a token", res.data);
+        return;
+      }
+      console.log("login token:", token);
+      localStorage.setItem("adminToken", token);
 
       myNav("/");
     })

@@ -3,35 +3,44 @@ import CreateEventModal from "./eventForm";
 import EventTable from "./eventTable";
 import Side from "../side/sidebar";
 import "./event.css"
-
+import axios from "axios";
+import { adminLocalhost } from "../localhostUrl";
 
 
 const Events = ({removeItem, sideRef, showItem}) => {
 
-  const [events, setEvents] = useState([
-    {
-      title: "Dinner",
-      date: "10/02/2020",
-      time: "09:20",
-      location: "Phase 3 Chowk",
-      participants: "30"
-    },
-    {
-      title: "Breakfast",
-      date: "15/03/2020",
-      time: "10:00",
-      location: "Board Bazar",
-      participants: "40"
-    }
-  ]);
+  const [events, setEvents] = useState([]);
+
+  const allEventUrl = `${adminLocalhost}/api/v2/eventRoute/getEvents`
+
+  useEffect(() => {
+    // fetching above url through axios
+    axios.get(allEventUrl)
+      .then((res) => {
+        console.log(res.data);
+        console.log(res.data.wholeEvents);
+        setEvents(res.data.wholeEvents);
+
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }, []);
+
+
+  
+
   const [open, setOpen] = useState(false);
+  const [updateOpen, setUpdateOpen] = useState(false);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
-  //   useEffect(() => {
+  function updateTable(id){
+    setUpdateOpen(true);
+    setSelectedEvent(id);
 
-  //     axios.get("/api/events")
-  //       .then(res => setEvents(res.data));
+    
+  }
 
-  //   }, []);
 
   return (
 
@@ -64,12 +73,13 @@ const Events = ({removeItem, sideRef, showItem}) => {
 
         </div>
 
-        <EventTable events={events} setEvents={setEvents} />
+        <EventTable events={events} setEvents={setEvents} updateTable={updateTable}/>
 
-        {open && (
+        {open || updateOpen && (
           <CreateEventModal
             setOpen={setOpen}
             setEvents={setEvents}
+            updateOpen={updateOpen}
           />
         )}
       </div>
