@@ -32,6 +32,7 @@ console.log("adminToken", adminToken);
 const COLORS = ["#34D399", "#F87171", "#60A5FA"]; // green, red, blue
 
 const Dishboard = () => {
+  
   useEffect(()=>{
    axios.post(absentUrl, {}, {
           headers: {
@@ -43,6 +44,7 @@ const Dishboard = () => {
    })
 
 },[adminToken])
+
   return (
     <div className="py-20 px-4 sm:p-6 bg-gray-100 min-h-screen">
 

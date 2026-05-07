@@ -120,9 +120,18 @@ const History = () => {
                           {item.name}
                         </td>
 
-                        <td className="p-4">{item.date}</td>
+                        <td className="p-4"> {new Date(item.date).toLocaleDateString("en-GB", {
+                          day: "2-digit",
+                          month: "short",
+                          year: "numeric",
+                        })}
+                        </td>
 
-                        <td className="p-4">{item.time}</td>
+                        <td className="p-4">{new Date(item.date).toLocaleTimeString("en-US", {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: true,
+                        })}</td>
 
                         <td className="p-4">
                           <span

@@ -8,6 +8,8 @@ const Side = ({removeItem}) => {
 
     const turnOut = () => {
         console.log("you are turn out");
+        localStorage.removeItem("adminToken");
+        window.location.href = "/login";
     }
 
     return (
@@ -46,7 +48,7 @@ const Side = ({removeItem}) => {
 
                 <div className='mt-auto flex gap-3 logout text-white'>
                     <img src="/arrow.png" className="w-5 h-5 " alt="" />
-                    <button type="button" className='text-[#0D121C] text-[14px] font-[500]' onClick={turnOut}>Log Out</button>
+                    <button type="button" className='text-[#0D121C] text-[14px] font-[500] cursor-pointer' onClick={turnOut}>Log Out</button>
                 </div>
             </div>
             <div>

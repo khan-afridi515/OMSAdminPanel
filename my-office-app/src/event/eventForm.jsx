@@ -4,7 +4,7 @@ import axios from "axios";
 import { adminLocalhost } from "../localhostUrl";
 
 
-const CreateEventModal = ({ setOpen, setEvents, updateOpen }) => {
+const CreateEventModal = ({ setOpen, setEvents, updateOpen, setUpdateOpen, selectedEvent }) => {
 
   const [form, setForm] = useState({
     title: "",
@@ -62,6 +62,44 @@ const CreateEventModal = ({ setOpen, setEvents, updateOpen }) => {
       alert("Failed to create event. Check console/network for details.");
     }
   };
+// conditionally passing date to update form for update api
+
+const updateForm ={}
+if(form.title){
+  updateForm.title = form.title;
+}
+if(form.date){
+  updateForm.eventDate = form.date;
+}
+if(form.location){
+  updateForm.place = form.location;
+}   
+if(form.time){
+  updateForm.time = form.time;
+}
+
+
+const updateEvent = async () => {
+  const updateUrl = `${adminLocalhost}/api/v2/eventRoute/updateEvent/${selectedEvent}`;
+  console.log("Updating event", updateForm, "token present?", Boolean(mytoken), updateUrl);
+  axios.put(
+    updateUrl,
+    updateForm, 
+    {
+      headers: {
+        Authorization: `Bearer ${mytoken}`,
+      },    
+    })
+    .then((res) => {
+      console.log("Update event response:", res);
+      setUpdateOpen(false);
+    })
+}
+
+  const removeForm = () => {
+    setOpen(false);
+    setUpdateOpen(false);
+  }
 
   return (
 
@@ -112,7 +150,8 @@ const CreateEventModal = ({ setOpen, setEvents, updateOpen }) => {
 
           <button
             className="px-4 py-2 border"
-            onClick={() => setOpen(false)}
+            // onClick={() => setOpen(false)}
+            onClick={removeForm}
           >
             Cancel
           </button>
@@ -120,7 +159,9 @@ const CreateEventModal = ({ setOpen, setEvents, updateOpen }) => {
           
            {updateOpen ? (<button
             className="bg-blue-500 text-white px-4 py-2 rounded create"
-            onClick={createEvent}
+            onClick={updateEvent}
+
+            
           >
             Update
           </button>)

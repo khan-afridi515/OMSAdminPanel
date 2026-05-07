@@ -41,6 +41,11 @@ const Events = ({removeItem, sideRef, showItem}) => {
     
   }
 
+  const myOpen = () => {
+    setOpen(true);
+    setUpdateOpen(false);
+  }
+
 
   return (
 
@@ -66,20 +71,23 @@ const Events = ({removeItem, sideRef, showItem}) => {
 
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded cursor-pointer create"
-            onClick={() => setOpen(true)}
+            // onClick={() => setOpen(true)}
+            onClick={myOpen}
           >
             Create Event
           </button>
 
         </div>
 
-        <EventTable events={events} setEvents={setEvents} updateTable={updateTable}/>
+        <EventTable events={events} setEvents={setEvents} updateTable={updateTable} setUpdateOpen={setUpdateOpen}/>
 
-        {open || updateOpen && (
+        {(open || updateOpen) && (
           <CreateEventModal
             setOpen={setOpen}
             setEvents={setEvents}
             updateOpen={updateOpen}
+            setUpdateOpen={setUpdateOpen}
+            selectedEvent={selectedEvent}
           />
         )}
       </div>

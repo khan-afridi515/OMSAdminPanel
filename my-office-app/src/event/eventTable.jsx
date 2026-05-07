@@ -3,7 +3,7 @@ import "./event.css";
 import { adminLocalhost } from "../localhostUrl";
 import axios from "axios";
 
-const EventTable = ({ events, setEvents, updateTable }) => {
+const EventTable = ({ events, setEvents, updateTable, setUpdateOpen }) => {
 
  
   const mytoken = localStorage.getItem("adminToken");
@@ -27,7 +27,7 @@ const EventTable = ({ events, setEvents, updateTable }) => {
     }
   };
 
-  console.log(events);
+
 
   return (
 
@@ -57,7 +57,7 @@ const EventTable = ({ events, setEvents, updateTable }) => {
 
               <td className="p-2 flex justify-left gap-2">
                  <button
-                  className="bg-green-500 text-white px-2 py-1 rounded text-xs"
+                  className="bg-green-500 text-white px-2 py-1 cursor-pointer rounded text-xs"
                   onClick={() => updateTable(event._id)}
                 >
                   Update
